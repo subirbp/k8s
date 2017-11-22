@@ -1,0 +1,23 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: webserver-blue
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: webserver-blue
+    spec:
+      containers:
+      - name: webserver-blue
+        image: nginx:alpine
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - name: hostvol-blue
+          mountPath: /usr/share/nginx/html
+      volumes:
+      - name: hostvol-blue
+        hostPath:
+          path: /home/docker/vol-blue
